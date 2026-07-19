@@ -88,7 +88,7 @@ int main() {
 using namespace std;
 
 int a[9];
-int n = 9, r = 7, sum;
+int n = 9, sum;
 vector<int> v;
 pair<int, int> ret;
 
@@ -123,6 +123,49 @@ int main() {
   sort(v.begin(), v.end());
 
   for (int i : v) cout << i << "\n";
+
+  return 0;
+}
+
+// combination with recursive (N : 크기 3 초과에 대한 경우)
+#include <bits/stdc++.h>
+using namespace std;
+
+int a[9];
+int n = 9, r = 7, sum;
+vector<int> v;
+
+void solve() {
+  for (int i : v) cout << a[i] << "\n";
+  return;
+}
+
+void combi(int start) {
+  if (sum == 100 && v.size() == r) {
+    solve();
+    return;
+  }
+
+  for (int i = start; i < n; i++) {
+    v.push_back(i);
+    sum += a[i];
+    combi(i + 1);
+    sum -= a[i];
+    v.pop_back();
+  }
+}
+
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+
+  for (int i = 0; i < n; i++) {
+    cin >> a[i];
+  }
+
+  sort(a, a + n);
+  combi(0);
 
   return 0;
 }
